@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fruitty's Travel & Adventures | Jamaica-based Travel Agent</title>
+<meta name="description" content="Custom Caribbean escapes and 48-hour getaways, planned by a Jamaica-based travel agent who knows the island firsthand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canopy: #123524;
+    --canopy-deep: #0C2619;
+    --sand: #F4ECD8;
+    --sand-dim: #E9DEC4;
+    --mango: #E8A33D;
+    --mango-deep: #B87A22;
+    --hibiscus: #E1583C;
+    --ink: #1C2E1E;
+    --cream: #FBF3E1;
+    --line: rgba(251,243,225,0.18);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--canopy);
+    color: var(--cream);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  h1,h2,h3{ font-family: 'Fraunces', serif; font-weight: 500; margin:0; }
+  a{ color: inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mango);
+  }
+
+  /* NAV */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    background: var(--canopy);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
+  .brand{ font-family:'Fraunces', serif; font-weight:600; font-size:20px; letter-spacing: 0.01em; }
+  .brand span{ color: var(--mango); }
+  .navlinks{ display:flex; gap:28px; font-size:14px; }
+  .navlinks a{ text-decoration:none; opacity:0.85; }
+  .navlinks a:hover{ opacity:1; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-decoration:none;
+    display:inline-block;
+    padding: 12px 22px;
+    border-radius: 100px;
+    border: 1px solid var(--mango);
+    color: var(--mango);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn:hover{ background: var(--mango); color: var(--canopy-deep); }
+  .btn.solid{ background: var(--mango); color: var(--canopy-deep); }
+  .btn.solid:hover{ background: var(--cream); border-color: var(--cream); }
+  .navcta{ display:none; }
+  @media(min-width:720px){ .navcta{ display:inline-block; } }
+
+  /* HERO */
+  .hero{ padding: 88px 0 96px; position:relative; overflow:hidden; }
+  .hero-flight{
+    position:absolute; top:60px; right:-40px; width:260px; opacity:0.14;
+    stroke: var(--cream); fill:none; stroke-width:1.4;
+  }
+  .hero h1{
+    font-size: clamp(38px, 6vw, 66px);
+    line-height: 1.04;
+    max-width: 780px;
+  }
+  .hero h1 em{ font-style: italic; color: var(--mango); }
+  .hero p.lede{
+    max-width: 520px;
+    margin-top: 22px;
+    font-size: 18px;
+    color: var(--sand-dim);
+  }
+  .hero-actions{ margin-top: 34px; display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-strip{
+    margin-top: 64px;
+    display:flex; gap: 40px; flex-wrap:wrap;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  .stat{ font-family:'IBM Plex Mono', monospace; }
+  .stat b{ display:block; font-size:22px; color: var(--mango); font-weight:500; }
+  .stat span{ font-size:12px; color: var(--sand-dim); text-transform:uppercase; letter-spacing:0.08em; }
+
+  /* PACKAGES — passport stamp cards */
+  section{ padding: 84px 0; }
+  .section-head{ max-width: 620px; margin-bottom: 48px; }
+  .section-head h2{ font-size: clamp(28px,4vw,40px); margin-top:10px; }
+  .section-head p{ color: var(--sand-dim); margin-top:14px; font-size: 16px; }
+
+  .packages{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 28px; }
+  .stamp-card{
+    background: var(--sand);
+    color: var(--ink);
+    border-radius: 18px;
+    padding: 30px 28px 28px;
+    position: relative;
+  }
+  .stamp{
+    width: 92px; height: 92px;
+    border-radius: 50%;
+    border: 2px dashed var(--hibiscus);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    transform: rotate(-8deg);
+    margin-bottom: 20px;
+  }
+  .stamp b{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--hibiscus);
+    line-height:1.3;
+  }
+  .stamp-card h3{ font-size: 23px; color: var(--ink); }
+  .stamp-card .loc{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--mango-deep);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-top:4px;
+  }
+  .stamp-card p{ margin-top: 14px; font-size: 15px; color: #3A4A3B; }
+  .stamp-card ul{ margin: 18px 0 0; padding:0; list-style:none; font-size:14px; }
+  .stamp-card li{ padding-left: 18px; position:relative; margin-bottom:8px; color:#3A4A3B; }
+  .stamp-card li:before{ content:"—"; position:absolute; left:0; color: var(--hibiscus); }
+
+  /* ABOUT */
+  .about{ background: var(--canopy-deep); }
+  .about-grid{ display:grid; grid-template-columns: 1fr; gap: 40px; }
+  @media(min-width:820px){ .about-grid{ grid-template-columns: 1.1fr 0.9fr; align-items:center; } }
+  .about h2{ font-size: clamp(28px,4vw,38px); }
+  .about p{ color: var(--sand-dim); margin-top:16px; font-size:16px; max-width: 480px; }
+  .about-card{
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px;
+    background: rgba(251,243,225,0.03);
+  }
+  .about-card .eyebrow{ margin-bottom:10px; display:block; }
+  .about-card h3{ font-size:20px; color:var(--cream); margin-bottom:10px; }
+  .about-card p{ font-size:14px; color: var(--sand-dim); max-width:none; margin-top:0; }
+
+  /* CONTACT */
+  .contact{
+    background: var(--sand);
+    color: var(--ink);
+    border-radius: 24px;
+    margin: 0 auto;
+    max-width: 1080px;
+    padding: 56px 40px;
+    text-align:center;
+  }
+  .contact h2{ font-size: clamp(28px,5vw,42px); color: var(--ink); }
+  .contact p{ color:#3A4A3B; max-width:480px; margin: 16px auto 30px; }
+  .contact-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn-dark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    padding: 14px 26px;
+    border-radius:100px;
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn-dark:hover{ background: var(--hibiscus); }
+  .btn-outline-dark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    text-decoration:none;
+    padding: 14px 26px;
+    border-radius:100px;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+
+  footer{ padding: 40px 0 60px; }
+  footer .wrap{ display:flex; flex-direction:column; gap:6px; align-items:center; text-align:center; }
+  footer .brand{ font-size:16px; }
+  footer p{ font-size:13px; color: var(--sand-dim); }
+
+  .fill-note{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color: var(--hibiscus);
+    background: rgba(225,88,60,0.12);
+    display:inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Fruitty's <span>Travel</span> &amp; Adventures</div>
+    <div class="navlinks">
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="btn navcta" href="#contact">Plan my trip</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Jamaica-based &middot; Custom itineraries</p>
+    <h1>Your next escape,<br><em>planned by someone</em><br>who's actually been there.</h1>
+    <p class="lede">Ocho Rios waterfalls, Negril sunsets, or a spontaneous 48 hours out of MBJ — Fruitty's Travel builds trips around how you actually want to feel, not a generic package.</p>
+    <div class="hero-actions">
+      <a class="btn solid" href="#contact">Start planning</a>
+      <a class="btn" href="#packages">See packages</a>
+    </div>
+    <div class="hero-strip">
+      <div class="stat"><b>100</b><span>Jamaica spots being reviewed firsthand</span></div>
+      <div class="stat"><b>MBJ</b><span>Home airport for fast getaways</span></div>
+      <div class="stat"><b>1:1</b><span>Every trip planned personally</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="packages">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Packages</p>
+      <h2>Built for how you travel</h2>
+      <p>A starting point for every trip — every package is adjusted to your dates, group size, and budget.</p>
+    </div>
+    <div class="packages">
+
+      <div class="stamp-card">
+        <div class="stamp"><b>Ocho<br>Rios</b></div>
+        <div class="loc">St. Ann, Jamaica</div>
+        <h3>The Ocho Rios Escape</h3>
+        <p>Waterfalls, horseback rides along the coast, and easy island pace — a classic Jamaican getaway done right.</p>
+        <ul>
+          <li>Caribbean horseback ride experience</li>
+          <li>Curated stay recommendations</li>
+          <li>Local guide connections</li>
+        </ul>
+      </div>
+
+      <div class="stamp-card">
+        <div class="stamp"><b>48<br>Hours</b></div>
+        <div class="loc">Via MBJ</div>
+        <h3>The 48-Hour Getaway</h3>
+        <p>A short-notice international run through Sangster International — for when you just need to leave for a couple of days.</p>
+        <ul>
+          <li>Flights timed around a full weekend</li>
+          <li>No-fuss, low-planning itinerary</li>
+          <li>Built for spontaneous trips</li>
+        </ul>
+      </div>
+
+      <div class="stamp-card">
+        <div class="stamp"><b>Negril<br>W.E.</b></div>
+        <div class="loc">Westmoreland, Jamaica</div>
+        <h3>The Negril Escape</h3>
+        <p>Seven Mile Beach, cliffside sunsets at Rick's Cafe, and nights out at Ivan's — the relaxed side of the island.</p>
+        <ul>
+          <li>Beachfront stay options</li>
+          <li>Sunset + nightlife route</li>
+          <li>Site-tested by Fruitty's Travel</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow">About</p>
+      <h2>A country girl at heart, planning trips across the island she grew up on.</h2>
+      <p>Fruitty's Travel & Adventures is built on knowing Jamaica firsthand — not just booking it. Every recommendation comes from a real visit, a real conversation with the people who run the place, or a client's honest feedback.</p>
+      <p>Behind the business: years in customer service, a young daughter to build a future for, and a running project to visit 100 spots across Jamaica and give an honest read on which ones are actually worth the trip.</p>
+    </div>
+    <div class="about-card">
+      <span class="eyebrow">Currently building</span>
+      <h3>The 100 Places Project</h3>
+      <p>An ongoing series covering 100 locations across Jamaica — honest reviews on whether the popular tourist spots live up to the hype, alongside the local favorites most visitors never hear about.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <p class="eyebrow" style="color:var(--hibiscus);">Get in touch</p>
+      <h2>Let's plan your trip.</h2>
+      <p>Tell me your dates, your group, and what kind of trip you're after — I'll put together options.</p>
+      <div class="contact-actions">
+        <a class="btn-dark" href="https://wa.me/18767973938" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn-outline-dark" href="mailto:fruittystravelsandadventures@gmail.com">Email me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">Fruitty's <span style="color:var(--mango);">Travel</span> &amp; Adventures</div>
+    <p>Jamaica &middot; Custom itineraries &middot; Booked with care</p>
+  </div>
+</footer>
+
+</body>
+</html>
