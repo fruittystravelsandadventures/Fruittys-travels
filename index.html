@@ -201,6 +201,58 @@
   footer .brand{ font-size:16px; }
   footer p{ font-size:13px; color: var(--sand-dim); }
 
+  .inquiry-form{
+    margin-top: 36px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .inquiry-form .full{ grid-column: 1 / -1; }
+  .inquiry-form label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--mango-deep);
+    display:block;
+    margin-bottom: 6px;
+  }
+  .inquiry-form input,
+  .inquiry-form textarea{
+    width: 100%;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(28,46,30,0.18);
+    background: #FFFDF7;
+    color: var(--ink);
+  }
+  .inquiry-form textarea{ resize: vertical; min-height: 90px; }
+  .inquiry-form .full.submit-row{
+    display:flex; justify-content:center; margin-top: 6px;
+  }
+  .inquiry-form button{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding: 14px 30px;
+    border-radius: 100px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    cursor: pointer;
+  }
+  .inquiry-form button:hover{ background: var(--hibiscus); }
+  @media(max-width:600px){ .inquiry-form{ grid-template-columns: 1fr; } }
+
+  .divider-or{
+    text-align:center; margin: 40px 0 -10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px; text-transform:uppercase; letter-spacing:0.1em;
+    color: #7C8A72;
+  }
+
   .fill-note{
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
@@ -318,6 +370,33 @@
         <a class="btn-dark" href="https://wa.me/18767973938" target="_blank" rel="noopener">Message on WhatsApp</a>
         <a class="btn-outline-dark" href="mailto:fruittystravelsandadventures@gmail.com">Email me</a>
       </div>
+
+      <p class="divider-or">or send the details directly</p>
+      <form class="inquiry-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label for="contact">WhatsApp or email</label>
+          <input type="text" id="contact" name="contact" required>
+        </div>
+        <div>
+          <label for="destination">Where to?</label>
+          <input type="text" id="destination" name="destination" placeholder="Ocho Rios, Negril, not sure yet...">
+        </div>
+        <div>
+          <label for="dates">Dates &amp; group size</label>
+          <input type="text" id="dates" name="dates" placeholder="e.g. Dec 12-16, 4 people">
+        </div>
+        <div class="full">
+          <label for="message">Anything else?</label>
+          <textarea id="message" name="message" placeholder="Budget, occasion, must-haves..."></textarea>
+        </div>
+        <div class="full submit-row">
+          <button type="submit">Send inquiry</button>
+        </div>
+      </form>
     </div>
   </div>
 </section>

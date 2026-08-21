@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 🔧 EDIT: put the client's name and trip in the title -->
+<title>CLIENT NAME's Trip | Fruitty's Travel & Adventures</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canopy: #123524; --canopy-deep: #0C2619;
+    --sand: #F4ECD8; --sand-dim: #E9DEC4;
+    --mango: #E8A33D; --mango-deep: #B87A22;
+    --hibiscus: #E1583C; --ink: #1C2E1E; --cream: #FBF3E1;
+    --line: rgba(251,243,225,0.18);
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--canopy); color:var(--cream); font-family:'Work Sans',sans-serif; line-height:1.6; }
+  h1,h2,h3{ font-family:'Fraunces',serif; font-weight:500; margin:0; }
+  a{ color:inherit; }
+  .wrap{ max-width: 760px; margin:0 auto; padding: 0 24px; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--mango); }
+
+  header.top{ padding: 48px 0 40px; border-bottom:1px solid var(--line); }
+  .brand{ font-family:'Fraunces',serif; font-size:16px; margin-bottom:24px; opacity:0.8; }
+  .brand span{ color:var(--mango); }
+  header.top h1{ font-size: clamp(30px,5vw,44px); margin-top:10px; }
+  .trip-meta{ display:flex; gap:28px; flex-wrap:wrap; margin-top:20px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--sand-dim); }
+
+  section{ padding: 40px 0; border-bottom:1px solid var(--line); }
+  section h2{ font-size:22px; margin-bottom:18px; }
+
+  .day{ margin-bottom: 22px; }
+  .day .label{ font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--mango); margin-bottom:6px; }
+  .day p{ margin:0; color:var(--sand-dim); }
+
+  .payment-box{
+    background: var(--sand); color:var(--ink);
+    border-radius:18px; padding: 28px;
+  }
+  .payment-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed rgba(28,46,30,0.15); font-size:15px; }
+  .payment-row:last-of-type{ border-bottom:none; }
+  .payment-row.total{ font-weight:600; font-size:17px; }
+  .pay-btn{
+    display:block; text-align:center; margin-top:20px;
+    font-family:'IBM Plex Mono',monospace; font-size:14px;
+    background: var(--hibiscus); color:var(--cream);
+    text-decoration:none; padding:16px; border-radius:100px;
+  }
+  .pay-btn:hover{ background: var(--ink); }
+  .status{
+    display:inline-block; margin-top:14px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.06em;
+    padding: 4px 10px; border-radius: 6px;
+    background: rgba(232,163,61,0.18); color: var(--mango-deep);
+  }
+
+  footer{ padding: 40px 0 60px; text-align:center; }
+  footer p{ font-size:13px; color:var(--sand-dim); }
+  footer a{ color:var(--mango); text-decoration:none; }
+
+  .howto{
+    background: rgba(225,88,60,0.1); border:1px dashed var(--hibiscus);
+    border-radius: 12px; padding: 16px 18px; margin: 24px 0;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--hibiscus);
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ============================================
+  HOW TO USE THIS TEMPLATE
+  ============================================
+  1. Save a COPY of this file for each client, named something like:
+     trips/johndoe-ochorios.html
+  2. Replace everything in ALL CAPS below with the client's real details.
+  3. Paste the client's Fygaro invoice link where it says FYGARO_LINK_HERE.
+  4. Upload the new file into the /trips/ folder in your GitHub repo.
+  5. Send the client the link directly, e.g.:
+     https://fruittystravelsandadventures.github.io/Fruittys-travels/trips/johndoe-ochorios.html
+  This page is unlisted (not shown anywhere on your main site or search
+  engines), so only people you send the link to will find it.
+  Delete this comment block before uploading a real client's page.
+-->
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Fruitty's <span>Travel</span> &amp; Adventures</div>
+    <p class="eyebrow">Your trip</p>
+    <!-- 🔧 EDIT -->
+    <h1>CLIENT NAME's Ocho Rios Escape</h1>
+    <div class="trip-meta">
+      <span>📅 TRIP DATES</span>
+      <span>👥 GROUP SIZE</span>
+      <span>📍 DESTINATION</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Itinerary</h2>
+
+    <div class="day">
+      <div class="label">Day 1</div>
+      <p><!-- 🔧 EDIT --> Arrival, check-in, evening at leisure.</p>
+    </div>
+    <div class="day">
+      <div class="label">Day 2</div>
+      <p><!-- 🔧 EDIT --> Horseback ride experience, waterfall visit, dinner.</p>
+    </div>
+    <div class="day">
+      <div class="label">Day 3</div>
+      <p><!-- 🔧 EDIT --> Free morning, checkout, departure.</p>
+    </div>
+    <!-- Add or remove day blocks as needed -->
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Payment</h2>
+    <div class="payment-box">
+      <div class="payment-row"><span>Trip total</span><span>$0,000 USD</span></div>
+      <div class="payment-row"><span>Deposit paid</span><span>$0,000 USD</span></div>
+      <div class="payment-row total"><span>Balance due</span><span>$0,000 USD</span></div>
+
+      <!-- 🔧 EDIT: paste the client's Fygaro invoice link below -->
+      <a class="pay-btn" href="FYGARO_LINK_HERE" target="_blank" rel="noopener">Pay balance via Fygaro</a>
+      <span class="status">Awaiting payment</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Questions about this trip? Message me on <a href="https://wa.me/18767973938" target="_blank" rel="noopener">WhatsApp</a> or <a href="mailto:fruittystravelsandadventures@gmail.com">email</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>
