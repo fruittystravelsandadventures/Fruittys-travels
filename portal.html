@@ -4,250 +4,186 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My Trip – Fruitty’s Travel &amp; Adventures</title>
+<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --olive:#4a5a2b; --olive-dark:#2f3a1a; --gold:#c8a24a; --blue:#1f4fb4;
-  --white:#ffffff; --ground:#eef1e6; --ink:#1d2314; --muted:#5d664d; --line:#d5dbc5;
-  --head:"Bricolage Grotesque", Georgia, serif;
-  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --ground:#171b10; --white:#232a17; --ink:#f0f3e6; --muted:#b3bba0; --line:#3a4426; --olive:#a9bd78; --olive-dark:#d9e6b3; --blue:#7fa6ff; }
-}
-*{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
-  padding:max(20px,env(safe-area-inset-top,0px)) 16px max(32px,env(safe-area-inset-bottom,0px))}
-main{max-width:640px;margin:0 auto}
-h1,h2,h3{font-family:var(--head);margin:0;line-height:1.15}
-.brand{display:flex;align-items:center;gap:10px;margin-bottom:22px;color:var(--olive-dark);font-family:var(--head);font-weight:700;font-size:1.05rem}
-.brand i{width:12px;height:12px;border-radius:50%;background:var(--gold);display:inline-block}
-.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px}
-.lookup h1{font-size:1.9rem;color:var(--olive-dark);margin-bottom:8px}
-.lookup p{color:var(--muted);margin:0 0 20px}
-label{display:block;font-weight:600;font-size:.92rem;margin:14px 0 6px}
-input{width:100%;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink)}
-input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-.btn{display:inline-block;font:inherit;font-weight:600;text-align:center;text-decoration:none;cursor:pointer;border:0;border-radius:10px;padding:13px 20px;background:var(--olive);color:#fff;margin-top:20px}
-.btn.pay{background:var(--blue);width:100%;font-size:1.05rem;margin-top:16px}
-.btn.ghost{background:transparent;color:var(--olive-dark);border:1px solid var(--line);margin-top:0}
-.error{margin-top:14px;color:#a3281d;font-weight:500}
-@media (prefers-color-scheme: dark){.error{color:#ff9d92}}
-.hidden{display:none}
-
-/* trip card: top section + torn-off balance stub */
-.pass{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.pass-top{padding:26px;border-top:8px solid var(--olive)}
-.pass-top .hello{color:var(--muted);margin:0 0 4px}
-.pass-top h1{font-size:2rem;color:var(--olive-dark)}
-.meta{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:14px;color:var(--muted);font-size:.95rem}
-.meta b{color:var(--ink);font-weight:600}
-.tear{position:relative;height:0;border-top:2px dashed var(--line);margin:0 22px}
-.tear::before,.tear::after{content:"";position:absolute;top:-13px;width:24px;height:24px;border-radius:50%;background:var(--ground);border:1px solid var(--line)}
-.tear::before{left:-35px}.tear::after{right:-35px}
-.stub{padding:24px 26px 28px}
-.bal-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
-.bal-row .label{color:var(--muted);font-size:.92rem}
-.bal-row .amount{font-family:var(--head);font-weight:700;font-size:2.4rem;line-height:1;color:var(--olive-dark)}
-.bar{height:10px;background:var(--line);border-radius:6px;margin:16px 0 8px;overflow:hidden}
-.bar span{display:block;height:100%;background:var(--gold);border-radius:6px}
-.small{color:var(--muted);font-size:.9rem}
-.paid-full{margin-top:14px;font-weight:600;color:var(--olive)}
-section.block{margin-top:18px}
-section.block h2{font-size:1.25rem;color:var(--olive-dark);margin-bottom:12px}
-.day{padding:12px 0;border-top:1px solid var(--line)}
-.day:first-of-type{border-top:0}
-.day h3{font-size:1rem;font-family:var(--body);font-weight:600}
-.day p{margin:2px 0 0;color:var(--muted)}
-ul.plain{list-style:none;margin:0;padding:0}
-ul.plain li{padding:9px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
-ul.plain li:first-child{border-top:0}
-.contact{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:26px}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
 </head>
 <body>
-<main>
-  <div class="brand"><i></i> Fruitty’s Travel &amp; Adventures</div>
+<header class="top">
+  <a class="brand" href="index.html">Fruitty’s <span>Travel</span> &amp; Adventures</a>
+  <div class="right"><span id="who"></span><button id="out" class="btn ghost hidden" type="button">Sign out</button></div>
+</header>
 
-  <!-- 1. Find my trip -->
-  <div id="lookup" class="card lookup">
-    <h1>Find your trip</h1>
-    <p>Enter the trip code and email address I sent you.</p>
-    <form id="form" autocomplete="off">
-      <label for="code">Trip code</label>
-      <input id="code" name="code" required placeholder="e.g. OCHO-7K3Q">
+<main class="wrap">
+
+  <!-- Sign in / create account -->
+  <section id="auth" class="card hidden">
+    <h1>My trip</h1>
+    <p class="muted">Sign in to see your itinerary, balance, payments and deals.</p>
+    <div class="tabs">
+      <button class="tab on" id="tabIn" type="button">Sign in</button>
+      <button class="tab" id="tabUp" type="button">Create account</button>
+    </div>
+    <form id="fAuth">
       <label for="email">Email address</label>
-      <input id="email" name="email" type="email" required placeholder="you@example.com">
-      <button class="btn" type="submit">Show my trip</button>
-      <div id="error" class="error hidden" role="alert"></div>
+      <input id="email" type="email" required autocomplete="email">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" required minlength="8" autocomplete="current-password">
+      <button class="btn" id="go" type="submit">Sign in</button>
+      <p class="small"><button class="linkbtn" id="forgot" type="button">Forgot your password?</button></p>
+      <div id="msg" class="msg hidden" role="alert"></div>
     </form>
-  </div>
+    <p class="small muted" id="note">Use the same email address you gave me when you booked, so your trip shows up. I only store your email and your trip details, never passport or ID numbers.</p>
+  </section>
 
-  <!-- 2. Trip details -->
-  <div id="trip" class="hidden"></div>
+  <!-- New password -->
+  <section id="recover" class="card hidden">
+    <h1>Choose a new password</h1>
+    <form id="fRec">
+      <label for="np">New password (8+ characters)</label>
+      <input id="np" type="password" required minlength="8" autocomplete="new-password">
+      <button class="btn" type="submit">Save password</button>
+      <div id="rmsg" class="msg hidden" role="alert"></div>
+    </form>
+  </section>
 
-  <p class="foot">Questions? Message me and I’ll sort it out.</p>
+  <!-- Dashboard -->
+  <section id="dash" class="hidden">
+    <div id="adminlink" class="hidden"><a class="btn gold small" href="admin.html">Open admin page</a></div>
+    <div id="deals"></div>
+    <div id="trips"></div>
+    <div class="card">
+      <h2>Need to change something?</h2>
+      <div class="actions">
+        <a class="btn ghost small" id="wa" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn ghost small" id="em">Email me</a>
+      </div>
+    </div>
+  </section>
+
+  <p class="foot">Let’s travel together, see you in Jamaica.</p>
 </main>
 
 <script>
-/* =====================================================================
-   YOUR CLIENTS – edit only this list.
-   To add a client: copy one block, change every value, add a comma after the
-   closing brace of the block above.
+(function(){
+  var C = window.FRUITTYS || {};
+  var $ = function(i){ return document.getElementById(i); };
+  function el(tag, cls, text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e; }
+  function safe(u){ return typeof u==="string" && /^https:\/\//i.test(u); }
+  function money(n,c){ try{ return new Intl.NumberFormat("en-US",{style:"currency",currency:c}).format(n); }catch(e){ return c+" "+Number(n).toFixed(2); } }
+  function nice(iso){ var d=new Date(iso+"T12:00:00"); return isNaN(d)?iso:d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}); }
+  function lines(t){ return (t||"").split("\n").map(function(s){return s.trim();}).filter(Boolean); }
 
-   IMPORTANT: this page is a simple private lookup, not a secure login.
-   Anyone who views the page source can read this list. So NEVER put passport
-   numbers, ID numbers, birth dates or card details here. Itinerary, amount
-   owed and payment link only.
-
-   - code:    make it long and random (e.g. OCHO-7K3Q), different for each client
-   - total / payments: use the same currency as "currency"
-   - payLink: the client's own Fygaro invoice link
-   ===================================================================== */
-var WHATSAPP = "18767973938";            // your WhatsApp number: country code + number, no + or spaces
-var CONTACT_EMAIL = "fruittystravelsandadventures@gmail.com";   // your email
-
-var CLIENTS = [
-  {
-    code: "OCHO-7K3Q",
-    email: "sample.client@example.com",
-    name: "Sample Client",
-    trip: "Ocho Rios Escape",
-    dates: "Sat 14 Nov – Sun 15 Nov 2026",
-    travellers: "2 adults",
-    currency: "USD",
-    total: 420,
-    payments: [
-      { date: "2026-10-10", note: "Deposit", amount: 150 }
-    ],
-    dueDate: "2026-11-07",
-    payLink: "https://fygaro.com/",      // replace with this client's Fygaro invoice link
-    itinerary: [
-      { day: "Saturday", text: "Pickup at 8:00 am. Dunn’s River Falls, lunch in Ocho Rios, horseback ride at sunset." },
-      { day: "Sunday",   text: "Beach morning, souvenir stop, drop-off by 4:00 pm." }
-    ],
-    included: ["Private van", "Horseback ride", "Welcome kit", "Van decoration"]
+  if(!C.SUPABASE_URL || C.SUPABASE_URL.indexOf("PASTE")===0){
+    document.querySelector("main").innerHTML = "<div class='card'><h1>Portal not set up yet</h1><p>Add your Supabase details to supabase-config.js.</p></div>";
+    return;
   }
-];
-/* ===================================================================== */
+  var sb = supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY);
+  var mode="signin", recovering=false;
 
-var $ = function(id){ return document.getElementById(id); };
+  $("wa").href = "https://wa.me/" + C.WHATSAPP; $("em").href = "mailto:" + C.CONTACT_EMAIL;
 
-function money(n, cur){
-  try { return new Intl.NumberFormat("en-US",{style:"currency",currency:cur}).format(n); }
-  catch(e){ return cur + " " + n.toFixed(2); }
-}
-function niceDate(iso){
-  var d = new Date(iso + "T12:00:00");
-  return isNaN(d) ? iso : d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
-}
-function el(tag, cls, text){
-  var e = document.createElement(tag);
-  if(cls) e.className = cls;
-  if(text !== undefined) e.textContent = text;
-  return e;
-}
+  function show(id){
+    ["auth","recover","dash"].forEach(function(v){ $(v).classList.toggle("hidden", v!==id); });
+    $("out").classList.toggle("hidden", id==="auth"); if(id==="auth") $("who").textContent="";
+  }
+  function say(id,text,ok){ var m=$(id); m.textContent=text||""; m.className="msg "+(ok?"ok":"err"); m.classList.toggle("hidden",!text); }
 
-function showTrip(c){
-  var paid = c.payments.reduce(function(s,p){ return s + p.amount; }, 0);
-  var balance = Math.max(0, c.total - paid);
-  var pct = c.total > 0 ? Math.min(100, Math.round(paid / c.total * 100)) : 0;
-  var root = $("trip");
-  root.textContent = "";
+  function setMode(m){
+    mode=m; $("tabIn").classList.toggle("on",m==="signin"); $("tabUp").classList.toggle("on",m==="signup");
+    $("go").textContent = m==="signin" ? "Sign in" : "Create my account";
+    $("pw").autocomplete = m==="signin" ? "current-password" : "new-password"; say("msg","");
+  }
+  $("tabIn").onclick=function(){ setMode("signin"); }; $("tabUp").onclick=function(){ setMode("signup"); };
 
-  var pass = el("div","pass");
-  var top = el("div","pass-top");
-  top.appendChild(el("p","hello","Hi " + c.name.split(" ")[0] + ", here’s your trip"));
-  top.appendChild(el("h1",null,c.trip));
-  var meta = el("div","meta");
-  [["Dates",c.dates],["Travellers",c.travellers]].forEach(function(m){
-    var s = el("span"); s.appendChild(document.createTextNode(m[0] + ": ")); s.appendChild(el("b",null,m[1])); meta.appendChild(s);
+  $("fAuth").addEventListener("submit", async function(e){
+    e.preventDefault(); say("msg","");
+    var email=$("email").value.trim().toLowerCase(), pw=$("pw").value;
+    if(mode==="signup"){
+      var r=await sb.auth.signUp({email:email,password:pw,options:{emailRedirectTo:location.origin+location.pathname}});
+      if(r.error){ say("msg",r.error.message); return; }
+      say("msg","Almost done! Check your email and click the confirmation link, then come back here and sign in.",true);
+    } else {
+      var r2=await sb.auth.signInWithPassword({email:email,password:pw});
+      if(r2.error) say("msg", r2.error.message==="Invalid login credentials" ? "That email and password don’t match. If you’re new, use Create account first." : r2.error.message);
+    }
   });
-  top.appendChild(meta);
-  pass.appendChild(top);
-  pass.appendChild(el("div","tear"));
 
-  var stub = el("div","stub");
-  var row = el("div","bal-row");
-  var left = el("div");
-  left.appendChild(el("div","label","Balance to pay"));
-  left.appendChild(el("div","amount",money(balance,c.currency)));
-  row.appendChild(left);
-  var right = el("div","small", money(paid,c.currency) + " paid of " + money(c.total,c.currency));
-  row.appendChild(right);
-  stub.appendChild(row);
-  var bar = el("div","bar"); var fill = el("span"); fill.style.width = pct + "%"; bar.appendChild(fill);
-  bar.setAttribute("role","img"); bar.setAttribute("aria-label", pct + " percent paid");
-  stub.appendChild(bar);
-  if(balance > 0){
-    if(c.dueDate) stub.appendChild(el("div","small","Please pay by " + niceDate(c.dueDate)));
-    var a = el("a","btn pay","Pay " + money(balance,c.currency) + " now");
-    a.href = c.payLink; a.target = "_blank"; a.rel = "noopener";
-    stub.appendChild(a);
-    stub.appendChild(el("div","small","You’ll be taken to a secure Fygaro payment page."));
-  } else {
-    stub.appendChild(el("div","paid-full","Paid in full. Thank you!"));
-  }
-  pass.appendChild(stub);
-  root.appendChild(pass);
+  $("forgot").onclick=async function(){
+    var email=$("email").value.trim().toLowerCase();
+    if(!email){ say("msg","Type your email above first, then click Forgot your password."); return; }
+    var r=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+    say("msg", r.error ? r.error.message : "If that email has an account, a reset link is on its way.", !r.error);
+  };
 
-  var itin = el("section","block card"); itin.appendChild(el("h2",null,"Your plan"));
-  c.itinerary.forEach(function(d){
-    var day = el("div","day"); day.appendChild(el("h3",null,d.day)); day.appendChild(el("p",null,d.text)); itin.appendChild(day);
+  $("fRec").addEventListener("submit", async function(e){
+    e.preventDefault();
+    var r=await sb.auth.updateUser({password:$("np").value});
+    if(r.error){ say("rmsg",r.error.message); return; }
+    recovering=false; var s=await sb.auth.getSession(); if(s.data.session) load(s.data.session.user);
   });
-  root.appendChild(itin);
 
-  if(c.included && c.included.length){
-    var inc = el("section","block card"); inc.appendChild(el("h2",null,"What’s included"));
-    var ul = el("ul","plain"); c.included.forEach(function(i){ ul.appendChild(el("li",null,i)); }); inc.appendChild(ul);
-    root.appendChild(inc);
+  $("out").onclick=function(){ sb.auth.signOut(); };
+
+  sb.auth.onAuthStateChange(function(ev,session){
+    if(ev==="PASSWORD_RECOVERY"){ recovering=true; show("recover"); return; }
+    if(ev==="SIGNED_OUT"){ recovering=false; show("auth"); return; }
+    if(ev==="TOKEN_REFRESHED") return;
+    if(session && !recovering){ setTimeout(function(){ load(session.user); },0); }
+    else if(!session){ show("auth"); }
+  });
+
+  function sum(p){ return (p||[]).reduce(function(s,x){ return s+Number(x.amount); },0); }
+
+  function renderTrip(t){
+    var paid=sum(t.payments), total=Number(t.total), bal=Math.max(0,total-paid), pct=total>0?Math.min(100,Math.round(paid/total*100)):0;
+    var c=el("div","card trip");
+    c.appendChild(el("div","name",t.trip_name));
+    var meta=el("div","meta"); if(t.dates) meta.appendChild(el("span",null,t.dates)); if(t.travellers) meta.appendChild(el("span",null,t.travellers)); c.appendChild(meta);
+    var b=el("div","bal"); var l=el("div"); l.appendChild(el("div","lab","Balance to pay")); l.appendChild(el("div","amt",money(bal,t.currency))); b.appendChild(l);
+    b.appendChild(el("div","small muted",money(paid,t.currency)+" paid of "+money(total,t.currency))); c.appendChild(b);
+    var bar=el("div","bar"); var f=el("span"); f.style.width=pct+"%"; bar.appendChild(f); bar.setAttribute("role","img"); bar.setAttribute("aria-label",pct+" percent paid"); c.appendChild(bar);
+    if(bal>0){
+      if(t.due_date) c.appendChild(el("div","small muted","Please pay by "+nice(t.due_date)));
+      if(safe(t.pay_link)){ var a=el("a","btn pay","Pay "+money(bal,t.currency)+" now"); a.href=t.pay_link; a.target="_blank"; a.rel="noopener"; c.appendChild(a); c.appendChild(el("div","small muted","You’ll go to a secure Fygaro payment page.")); }
+      else c.appendChild(el("div","small muted","Message me and I’ll send your payment link."));
+    } else c.appendChild(el("div","paidfull","Paid in full. Thank you!"));
+    var it=lines(t.itinerary);
+    if(it.length){ var s=el("div","sec"); s.appendChild(el("h4",null,"Your plan")); it.forEach(function(x){ s.appendChild(el("p",null,x)); }); c.appendChild(s); }
+    var inc=lines(t.included);
+    if(inc.length){ var s2=el("div","sec"); s2.appendChild(el("h4",null,"What’s included")); var ul=el("ul","plain"); inc.forEach(function(x){ ul.appendChild(el("li",null,x)); }); s2.appendChild(ul); c.appendChild(s2); }
+    var pays=(t.payments||[]).slice().sort(function(a,b){ return a.paid_on<b.paid_on?-1:1; });
+    var s3=el("div","sec"); s3.appendChild(el("h4",null,"Payments received"));
+    if(pays.length){ var pl=el("ul","plain"); pays.forEach(function(p){ var li=el("li"); li.appendChild(el("span",null,nice(p.paid_on)+" – "+(p.note||"Payment"))); li.appendChild(el("b",null,money(p.amount,t.currency))); pl.appendChild(li); }); s3.appendChild(pl); }
+    else s3.appendChild(el("p","small muted","No payments yet."));
+    c.appendChild(s3);
+    return c;
   }
 
-  var pay = el("section","block card"); pay.appendChild(el("h2",null,"Payments received"));
-  if(c.payments.length){
-    var pl = el("ul","plain");
-    c.payments.forEach(function(p){
-      var li = el("li"); li.appendChild(el("span",null,niceDate(p.date) + " – " + p.note)); li.appendChild(el("b",null,money(p.amount,c.currency))); pl.appendChild(li);
+  async function load(user){
+    show("dash"); $("who").textContent=user.email;
+    var email=user.email.toLowerCase();
+    var t=await sb.from("trips").select("*, payments(*)").ilike("client_email",email).order("created_at",{ascending:false});
+    var d=await sb.from("deals").select("*").order("created_at",{ascending:false});
+    var a=await sb.from("admins").select("email").limit(1);
+    $("adminlink").classList.toggle("hidden", !(a.data && a.data.length));
+    var tb=$("trips"); tb.textContent="";
+    if(t.error){ tb.appendChild(el("div","card","Something went wrong loading your trips. Please refresh, or message me.")); }
+    else if(!t.data.length){
+      var e=el("div","card"); e.appendChild(el("h2",null,"No trips here yet")); e.appendChild(el("p","muted","Once you’ve booked with me, your trip will appear here under "+user.email+". If you booked with a different email, message me and I’ll match it.")); tb.appendChild(e);
+    } else t.data.forEach(function(x){ tb.appendChild(renderTrip(x)); });
+    var db=$("deals"); db.textContent="";
+    (d.data||[]).filter(function(x){ return x.active && (!x.client_email || x.client_email.toLowerCase()===email); }).forEach(function(x){
+      var c=el("div","card deal"); c.appendChild(el("h3",null,x.title)); if(x.body) c.appendChild(el("p",null,x.body));
+      if(safe(x.link)){ var l=el("a","btn gold small","See the deal"); l.href=x.link; l.target="_blank"; l.rel="noopener"; c.appendChild(l); }
+      db.appendChild(c);
     });
-    pay.appendChild(pl);
-  } else { pay.appendChild(el("p","small","No payments yet.")); }
-  root.appendChild(pay);
-
-  var ct = el("section","block card"); ct.appendChild(el("h2",null,"Need to change something?"));
-  var cc = el("div","contact");
-  var wa = el("a","btn ghost","Message on WhatsApp"); wa.href = "https://wa.me/" + WHATSAPP; wa.target = "_blank"; wa.rel = "noopener";
-  var em = el("a","btn ghost","Email me"); em.href = "mailto:" + CONTACT_EMAIL;
-  cc.appendChild(wa); cc.appendChild(em); ct.appendChild(cc);
-  root.appendChild(ct);
-
-  $("lookup").classList.add("hidden");
-  root.classList.remove("hidden");
-  window.scrollTo(0,0);
-}
-
-function find(code, email){
-  code = code.trim().toUpperCase(); email = email.trim().toLowerCase();
-  for(var i=0;i<CLIENTS.length;i++){
-    if(CLIENTS[i].code.toUpperCase() === code && CLIENTS[i].email.toLowerCase() === email) return CLIENTS[i];
   }
-  return null;
-}
-
-$("form").addEventListener("submit", function(e){
-  e.preventDefault();
-  var c = find($("code").value, $("email").value);
-  var err = $("error");
-  if(c){ err.classList.add("hidden"); showTrip(c); }
-  else { err.textContent = "We couldn’t find that trip. Check the code and the email address I have for you, then try again."; err.classList.remove("hidden"); }
-});
-
-/* Optional: a link like portal.html?code=OCHO-7K3Q fills in the code for the client */
-var qs = new URLSearchParams(location.search);
-if(qs.get("code")) $("code").value = qs.get("code");
+})();
 </script>
 </body>
 </html>

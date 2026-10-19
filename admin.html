@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin – Fruitty’s Travel &amp; Adventures</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="portal.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html">Fruitty’s <span>Travel</span> &amp; Adventures · Admin</a>
+  <div class="right"><a class="btn ghost" href="portal.html">Client view</a><button id="out" class="btn ghost hidden" type="button">Sign out</button></div>
+</header>
+<main class="wrap wide">
+
+  <section id="gate" class="card hidden">
+    <h1>Admin sign in</h1>
+    <form id="fIn">
+      <label for="email">Email</label><input id="email" type="email" required autocomplete="email">
+      <label for="pw">Password</label><input id="pw" type="password" required autocomplete="current-password">
+      <button class="btn" type="submit">Sign in</button>
+      <div id="gmsg" class="msg hidden" role="alert"></div>
+    </form>
+    <p class="small muted">First time? Create your account on the <a href="portal.html">My trip</a> page with this same email, confirm it, then come back here.</p>
+  </section>
+
+  <section id="denied" class="card hidden"><h1>Not an admin account</h1><p>This account isn’t set up as an admin. Sign out and use the admin email.</p></section>
+
+  <section id="panel" class="hidden">
+    <div class="card">
+      <h2 id="formTitle">Add a trip</h2>
+      <p class="small muted">The client sees this on the My trip page when they sign up with the same email address. Never enter passport or ID numbers.</p>
+      <form id="fTrip">
+        <input type="hidden" id="tid">
+        <div class="row">
+          <div><label for="t_email">Client email *</label><input id="t_email" type="email" required></div>
+          <div><label for="t_name">Trip name *</label><input id="t_name" required placeholder="Ocho Rios Escape"></div>
+          <div><label for="t_dates">Dates</label><input id="t_dates" placeholder="Sat 14 Nov – Sun 15 Nov 2026"></div>
+          <div><label for="t_trav">Travellers</label><input id="t_trav" placeholder="2 adults"></div>
+          <div><label for="t_cur">Currency</label><select id="t_cur"><option>USD</option><option>JMD</option></select></div>
+          <div><label for="t_total">Total price *</label><input id="t_total" type="number" step="0.01" min="0" required></div>
+          <div><label for="t_due">Pay balance by</label><input id="t_due" type="date"></div>
+          <div><label for="t_link">Fygaro payment link (https://…)</label><input id="t_link" placeholder="https://"></div>
+        </div>
+        <label for="t_itin">Itinerary (one line per day)</label>
+        <textarea id="t_itin" placeholder="Saturday: Pickup at 8:00 am, Dunn’s River Falls, lunch&#10;Sunday: Beach morning, drop-off by 4:00 pm"></textarea>
+        <label for="t_inc">What’s included (one per line)</label>
+        <textarea id="t_inc" placeholder="Private van&#10;Horseback ride"></textarea>
+        <div class="actions"><button class="btn" type="submit" id="saveTrip">Save trip</button><button class="btn ghost" type="button" id="cancelEdit">Clear form</button></div>
+        <div id="tmsg" class="msg hidden" role="alert"></div>
+      </form>
+    </div>
+
+    <h2 style="margin:26px 0 12px">All trips</h2>
+    <div id="tripList"></div>
+
+    <div class="card">
+      <h2>Post a deal</h2>
+      <form id="fDeal">
+        <label for="d_title">Title *</label><input id="d_title" required placeholder="Black Friday: 10% off Negril">
+        <label for="d_body">Details</label><textarea id="d_body"></textarea>
+        <div class="row">
+          <div><label for="d_link">Link (https://…)</label><input id="d_link"></div>
+          <div><label for="d_email">Only for this client email (leave empty for everyone)</label><input id="d_email" type="email"></div>
+        </div>
+        <button class="btn" type="submit">Post deal</button>
+        <div id="dmsg" class="msg hidden" role="alert"></div>
+      </form>
+    </div>
+    <h2 style="margin:26px 0 12px">Deals</h2>
+    <div id="dealList"></div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var C=window.FRUITTYS||{}; var $=function(i){return document.getElementById(i);};
+  function el(tag,cls,text){var e=document.createElement(tag); if(cls) e.className=cls; if(text!==undefined) e.textContent=text; return e;}
+  function money(n,c){try{return new Intl.NumberFormat("en-US",{style:"currency",currency:c}).format(n);}catch(e){return c+" "+Number(n).toFixed(2);}}
+  function safe(u){return typeof u==="string"&&/^https:\/\//i.test(u);}
+  function sum(p){return (p||[]).reduce(function(s,x){return s+Number(x.amount);},0);}
+  function today(){return new Date().toISOString().slice(0,10);}
+  function say(id,text,ok){var m=$(id); m.textContent=text||""; m.className="msg "+(ok?"ok":"err"); m.classList.toggle("hidden",!text);}
+  function show(id){["gate","denied","panel"].forEach(function(v){$(v).classList.toggle("hidden",v!==id);}); $("out").classList.toggle("hidden",id==="gate");}
+
+  if(!C.SUPABASE_URL||C.SUPABASE_URL.indexOf("PASTE")===0){document.querySelector("main").innerHTML="<div class='card'><h1>Not set up yet</h1><p>Add your Supabase details to supabase-config.js.</p></div>";return;}
+  var sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_ANON_KEY);
+  var trips=[],deals=[];
+
+  $("fIn").addEventListener("submit",async function(e){
+    e.preventDefault(); say("gmsg","");
+    var r=await sb.auth.signInWithPassword({email:$("email").value.trim().toLowerCase(),password:$("pw").value});
+    if(r.error) say("gmsg",r.error.message);
+  });
+  $("out").onclick=function(){sb.auth.signOut();};
+
+  sb.auth.onAuthStateChange(function(ev,session){
+    if(ev==="TOKEN_REFRESHED") return;
+    if(!session){show("gate");return;}
+    setTimeout(async function(){
+      var a=await sb.from("admins").select("email").limit(1);
+      if(a.data&&a.data.length){show("panel");loadAll();} else show("denied");
+    },0);
+  });
+
+  async function loadAll(){
+    var t=await sb.from("trips").select("*, payments(*)").order("created_at",{ascending:false});
+    if(t.error){say("tmsg",t.error.message);return;} trips=t.data; renderTrips();
+    var d=await sb.from("deals").select("*").order("created_at",{ascending:false});
+    deals=d.data||[]; renderDeals();
+  }
+
+  function resetForm(){ $("fTrip").reset(); $("tid").value=""; $("formTitle").textContent="Add a trip"; $("saveTrip").textContent="Save trip"; say("tmsg",""); }
+  $("cancelEdit").onclick=resetForm;
+
+  $("fTrip").addEventListener("submit",async function(e){
+    e.preventDefault(); say("tmsg","");
+    var link=$("t_link").value.trim();
+    if(link&&!safe(link)){say("tmsg","The payment link must start with https://");return;}
+    var row={client_email:$("t_email").value.trim().toLowerCase(),trip_name:$("t_name").value.trim(),dates:$("t_dates").value.trim()||null,travellers:$("t_trav").value.trim()||null,
+      currency:$("t_cur").value,total:parseFloat($("t_total").value)||0,due_date:$("t_due").value||null,pay_link:link||null,itinerary:$("t_itin").value.trim()||null,included:$("t_inc").value.trim()||null};
+    var id=$("tid").value, r= id ? await sb.from("trips").update(row).eq("id",id) : await sb.from("trips").insert(row);
+    if(r.error){say("tmsg",r.error.message);return;}
+    resetForm(); say("tmsg","Saved.",true); loadAll();
+  });
+
+  function editTrip(t){
+    $("tid").value=t.id; $("t_email").value=t.client_email; $("t_name").value=t.trip_name; $("t_dates").value=t.dates||""; $("t_trav").value=t.travellers||"";
+    $("t_cur").value=t.currency; $("t_total").value=t.total; $("t_due").value=t.due_date||""; $("t_link").value=t.pay_link||""; $("t_itin").value=t.itinerary||""; $("t_inc").value=t.included||"";
+    $("formTitle").textContent="Edit trip"; $("saveTrip").textContent="Save changes"; window.scrollTo({top:0,behavior:"smooth"});
+  }
+  async function addPayment(t){
+    var amt=parseFloat(prompt("Amount received ("+t.currency+"):")); if(!(amt>0)) return;
+    var note=prompt("What was it for? (e.g. Deposit)","Payment")||"Payment";
+    var on=prompt("Date received (YYYY-MM-DD):",today()); if(!on||!/^\d{4}-\d{2}-\d{2}$/.test(on)) return;
+    var r=await sb.from("payments").insert({trip_id:t.id,amount:amt,note:note,paid_on:on});
+    if(r.error) alert(r.error.message); else loadAll();
+  }
+  async function delPayment(p){ if(!confirm("Delete this payment?")) return; var r=await sb.from("payments").delete().eq("id",p.id); if(r.error) alert(r.error.message); else loadAll(); }
+  async function delTrip(t){ if(!confirm("Delete the trip \""+t.trip_name+"\" and all its payments?")) return; var r=await sb.from("trips").delete().eq("id",t.id); if(r.error) alert(r.error.message); else loadAll(); }
+
+  function renderTrips(){
+    var box=$("tripList"); box.textContent="";
+    if(!trips.length){box.appendChild(el("p","muted","No trips yet. Add the first one above."));return;}
+    trips.forEach(function(t){
+      var paid=sum(t.payments), bal=Math.max(0,Number(t.total)-paid), c=el("div","card trip");
+      c.appendChild(el("h3",null,t.trip_name));
+      c.appendChild(el("p","muted small",t.client_email+" · "+money(paid,t.currency)+" paid of "+money(t.total,t.currency)+" · balance "+money(bal,t.currency)));
+      if((t.payments||[]).length){ var ul=el("ul","plain");
+        t.payments.slice().sort(function(a,b){return a.paid_on<b.paid_on?-1:1;}).forEach(function(p){
+          var li=el("li"); li.appendChild(el("span",null,p.paid_on+" – "+(p.note||"Payment")+" – "+money(p.amount,t.currency)));
+          var x=el("button","btn danger small","Delete"); x.type="button"; x.onclick=function(){delPayment(p);}; li.appendChild(x); ul.appendChild(li); });
+        c.appendChild(ul); }
+      var act=el("div","actions");
+      [["Add payment",function(){addPayment(t);},""],["Edit",function(){editTrip(t);},"ghost"],["Delete trip",function(){delTrip(t);},"danger"]].forEach(function(b){
+        var x=el("button","btn small "+b[2],b[0]); x.type="button"; x.onclick=b[1]; act.appendChild(x); });
+      c.appendChild(act); box.appendChild(c);
+    });
+  }
+
+  $("fDeal").addEventListener("submit",async function(e){
+    e.preventDefault(); say("dmsg","");
+    var link=$("d_link").value.trim(); if(link&&!safe(link)){say("dmsg","The link must start with https://");return;}
+    var r=await sb.from("deals").insert({title:$("d_title").value.trim(),body:$("d_body").value.trim()||null,link:link||null,client_email:$("d_email").value.trim().toLowerCase()||null});
+    if(r.error){say("dmsg",r.error.message);return;} $("fDeal").reset(); say("dmsg","Deal posted.",true); loadAll();
+  });
+  function renderDeals(){
+    var box=$("dealList"); box.textContent="";
+    if(!deals.length){box.appendChild(el("p","muted","No deals yet."));return;}
+    deals.forEach(function(d){
+      var c=el("div","card deal"); c.appendChild(el("h3",null,d.title+(d.active?"":" (hidden)")));
+      c.appendChild(el("p","muted small","For: "+(d.client_email||"everyone")));
+      var act=el("div","actions");
+      var tg=el("button","btn small ghost",d.active?"Hide":"Show again"); tg.type="button";
+      tg.onclick=async function(){var r=await sb.from("deals").update({active:!d.active}).eq("id",d.id); if(r.error) alert(r.error.message); else loadAll();};
+      var dl=el("button","btn small danger","Delete"); dl.type="button";
+      dl.onclick=async function(){if(!confirm("Delete this deal?")) return; var r=await sb.from("deals").delete().eq("id",d.id); if(r.error) alert(r.error.message); else loadAll();};
+      act.appendChild(tg); act.appendChild(dl); c.appendChild(act); box.appendChild(c);
+    });
+  }
+})();
+</script>
+</body>
+</html>
