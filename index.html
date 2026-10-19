@@ -262,6 +262,25 @@
     padding: 2px 8px;
     border-radius: 4px;
   }
+    /* NEW COLOURS: white main screen with royal blue */
+  :root{ --royal:#1F4FB4; --gold-text:#9A6A14; }
+  .hero, #packages{ background:#FFFFFF; color:var(--ink); }
+  #packages{ border-top:1px solid rgba(31,79,180,0.12); }
+  .hero h1{ color:var(--royal); }
+  .hero h1 em{ color:var(--gold-text); }
+  .hero p.lede{ color:#3A4A3B; }
+  .hero .eyebrow, #packages .eyebrow{ color:var(--royal); }
+  .hero-flight{ stroke:var(--royal); opacity:0.12; }
+  .hero-strip{ border-top-color:rgba(31,79,180,0.2); }
+  .hero .stat b{ color:var(--royal); }
+  .hero .stat span{ color:#3A4A3B; }
+  .hero .btn{ border-color:var(--royal); color:var(--royal); }
+  .hero .btn:hover{ background:var(--royal); color:#FFFFFF; }
+  .hero .btn.solid{ background:var(--royal); color:#FFFFFF; border-color:var(--royal); }
+  .hero .btn.solid:hover{ background:var(--canopy); border-color:var(--canopy); color:#FFFFFF; }
+  #packages .section-head h2{ color:var(--royal); }
+  #packages .section-head p{ color:#3A4A3B; }
+  .stamp-card{ border:1px solid rgba(18,53,36,0.12); }
 </style>
 </head>
 <body>
@@ -273,6 +292,14 @@
       <a href="#packages">Packages</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
+      <div class="navlinks">
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="portal.html">My trip</a>
+    </div>
+    <a class="btn navcta" href="#contact">Plan my trip</a>
+  </div>
     </div>
     <a class="btn navcta" href="#contact">Plan my trip</a>
   </div>
