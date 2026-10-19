@@ -435,6 +435,22 @@
     <p>Jamaica &middot; Custom itineraries &middot; Booked with care</p>
   </div>
 </footer>
-
+<script>
+(function(){
+  var CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTksC1DUM05LzKHG3k5EGGN2NRjKfFC9RKZ0aFql_7fotve8qsgl2F4mEFPgKWKXChWhRmWsp5BU8cd/pub?gid=472509309&single=true&output=csv";
+  function parse(t){var rows=[],row=[],f="",q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else{if(c=='"')q=true;else if(c==','){row.push(f);f="";}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;row.push(f);rows.push(row);row=[];f="";}else f+=c;}}if(f!==""||row.length){row.push(f);rows.push(row);}return rows;}
+  fetch(CSV_URL).then(function(r){return r.text();}).then(function(t){
+    var rows=parse(t).slice(1).filter(function(r){return r[0]&&r[0].trim();});
+    if(!rows.length) return;
+    var box=document.getElementById("review-list"); if(!box) return; box.textContent="";
+    rows.forEach(function(r){
+      var b=document.createElement("blockquote"); b.className="review";
+      var p=document.createElement("p"); p.textContent=r[0].trim(); b.appendChild(p);
+      var f=document.createElement("footer"); f.textContent=[r[1],r[2]].filter(Boolean).join(" · ") || "Fruitty's traveler"; b.appendChild(f);
+      box.appendChild(b);
+    });
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
