@@ -281,6 +281,9 @@
   #packages .section-head h2{ color:var(--royal); }
   #packages .section-head p{ color:#3A4A3B; }
   .stamp-card{ border:1px solid rgba(18,53,36,0.12); }
+    .gallery{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .gallery figure{ margin:0; }
+  .gallery img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:14px; }
 </style>
 </head>
 <body>
@@ -370,7 +373,28 @@
     </div>
   </div>
 </section>
-
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Happy travelers</p>
+      <h2>Trips with Fruitty's</h2>
+    </div>
+    <div class="gallery">
+      <figure><img src="trip1.jpg" alt="Fruitty's Travel trip photo 1" loading="lazy"></figure>
+      <figure><img src="trip2.jpg" alt="Fruitty's Travel trip photo 2" loading="lazy"></figure>
+      <figure><img src="trip3.jpg" alt="Fruitty's Travel trip photo 3" loading="lazy"></figure>
+      <figure><img src="trip4.jpg" alt="Fruitty's Travel trip photo 4" loading="lazy"></figure>
+      <figure><img src="trip5.jpg" alt="Fruitty's Travel trip photo 5" loading="lazy"></figure>
+      <figure><img src="trip6.jpg" alt="Fruitty's Travel trip photo 6" loading="lazy"></figure>
+      <figure><img src="trip8.jpg" alt="Fruitty's Travel trip photo 8" loading="lazy"></figure>
+      <figure><img src="trip9.jpg" alt="Fruitty's Travel trip photo 9" loading="lazy"></figure>
+      <figure><img src="trip10.jpg" alt="Fruitty's Travel trip photo 10" loading="lazy"></figure>
+      <figure><img src="trip11.jpg" alt="Fruitty's Travel trip photo 11" loading="lazy"></figure>
+      <figure><img src="trip12.jpg" alt="Fruitty's Travel trip photo 12" loading="lazy"></figure>
+      <figure><img src="trip13.jpg" alt="Fruitty's Travel trip photo 13" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
 <section class="about" id="about">
   <div class="wrap about-grid">
     <div>
